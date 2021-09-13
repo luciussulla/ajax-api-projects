@@ -20,11 +20,13 @@
     
     function loadAjax() {
      const url = 'http://api.chucknorris.io/jokes/random'
-     fetch('./hello.txt').then((res)=>{
-       return response.tex()
-     }).then((txt)=> {
-       console.log(txt)
+
+     fetch(url).then((response)=>{
+       return response.json()
+     }).then((json)=> {
+       console.log(json)
      })
+
     }
 
 
