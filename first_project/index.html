@@ -22,9 +22,17 @@
     ajax.onreadystatechange = function(){
       console.log(ajax.readyState, ajax.status)
       if(ajax.readyState==4 && ajax.status==200) {
-        let data = ajax.responseText
-        let jsonData = JSON.parse(data)
+        let jsonData = JSON.parse(ajax.responseText)
         console.log(jsonData)
+        const data = jsonData.results[0]
+        const name = data.name.first
+        const sirname = data.name.last
+        const msg = name + ' ' + sirname
+        const image = data.picture.medium
+        output.innerHTML = `<div>
+          <p>${name} ${sirname}</p>
+          </div>`
+        output.innerHTML += '<br/><img src="' + image + '"/>'
       }
     }
     ajax.open('GET', 'https://randomuser.me/api', true); 
