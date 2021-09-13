@@ -25,7 +25,8 @@
           console.log(this.responseText)
           const jsonData = JSON.parse(this.responseText)
           const joke = jsonData.value
-          output.innerHTML = joke
+          const img = jsonData.icon_url
+          output.innerHTML = '<img src="'+ img +'">'  + '' + joke
         }
       }
       ajax.open('GET', 'https://api.chucknorris.io/jokes/random', true)
