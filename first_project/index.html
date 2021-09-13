@@ -7,9 +7,17 @@
   <title>Document</title>
 </head>
 <body>
+<button>Click</button>
+<div class="output"></div>
 
-  <script>
+<script>
+  const output = document.querySelector('.output')
+  const btn = document.querySelector('button')
+  btn.addEventListener('click', function(){
+    loadAjax() 
+  })
 
+  function loadAjax(){
     let ajax = new XMLHttpRequest()
     ajax.onreadystatechange = function(){
       console.log(ajax.readyState, ajax.status)
@@ -21,6 +29,8 @@
     }
     ajax.open('GET', 'https://randomuser.me/api', true); 
     ajax.send()
+  }
+ 
 
   </script>
 </body>
