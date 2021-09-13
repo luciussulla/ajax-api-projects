@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Local file load</h1>
+  <div class="output"></div>
+  <button class="loadNew">Load new Joke</button>
+
+  <script>
+    const output = document.querySelector('.output')
+    const btnClick = document.querySelector('button')
+    btnClick.addEventListener('click', function(){
+      loadAjax()
+    })
+    
+    function loadAjax() {
+     const url = 'http://api.chucknorris.io/jokes/random'
+     fetch('./hello.txt').then((res)=>{
+       return response.tex()
+     }).then((txt)=> {
+       console.log(txt)
+     })
+    }
+
+
+  </script>
+</body>
+</html>
