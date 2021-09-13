@@ -27,7 +27,6 @@
         const data = jsonData.results[0]
         const name = data.name.first
         const sirname = data.name.last
-        const msg = name + ' ' + sirname
         const image = data.picture.medium
         output.innerHTML = `<div>
           <p>${name} ${sirname}</p>
@@ -39,7 +38,6 @@
     ajax.send()
   }
  
-
   </script>
 </body>
 </html>
