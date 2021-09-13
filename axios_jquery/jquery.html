@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+</head>
+<body>
+  <div class="output"></div>
+  <button class="btn">Click - get jquery ajax data</button>
+
+
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+
+  <script>
+    // const btn = document.querySelector('.btn')
+    // const output = document.querySelecor('.output')
+    $('.btn').click(()=> {
+      webData()
+    })
+
+    const webData = ()=> {
+      console.log("hello")
+      $.ajax({
+        url: 'https://jsonplaceholder.typicode.com/posts/1', 
+        method: 'GET', 
+        success: (data)=> {
+          console.log("success", data)
+          $('.output').html(
+            '<h2>' + data.title + '</h2>'+
+            '<p>'+ data.body + '</p>'
+          )
+        }, 
+        dataType: 'json',
+        error: (e)=> {
+          console.log(e)
+        }
+      })
+      // .done((res)=> {
+      //   console.log(res)
+      // })
+      
+    }
+
+  </script>
+</body>
+</html>
