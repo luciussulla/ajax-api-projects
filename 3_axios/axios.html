@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+</head>
+<body>
+  <div class="output"></div>
+  <button>Get People Data</button>
+
+  <!-- <form >
+    <input type="text" name="first">
+    <input type="text" name="last">
+    <input type="submit" value="submit">
+  </form> -->
+
+  <script>
+    // const form = document.querySelector('form')
+    const btn = document.querySelector('button')
+    const output = document.querySelector('.output')
+    const processForm = (e) => {
+      e.preventDefault()
+      // const names = [...form.querySelectorAll('input[name]')]
+      // const data = {}
+      // names.forEach(input=> {
+      //   data[input.name] = input.value
+      // })
+      
+      let peopleData = []
+      let peopleDataHtml = ''
+
+      const url = 'https://randomuser.me/api/?results=10'
+      axios.get(url)
+      .then((response)=> {
+        console.log(response)
+        peopleData = response.data.results
+        console.log(peopleData)
+        peopleData.forEach(person => {
+          peopleDataHtml += '<h4>'+ person.name.first + person.name.last + '</h4>'+
+                            '<br/>' + person.email + '<br/>'
+        })  
+        output.innerHTML = peopleDataHtml
+      })
+      .catch((e)=> {
+        console.log(e)
+      })
+
+    }
+    
+    btn.addEventListener('click', processForm)
+    // form.addEventListener('submit', processForm)
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>
