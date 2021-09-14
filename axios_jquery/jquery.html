@@ -24,28 +24,45 @@
       webData()
     })
 
+    // const webData = ()=> {
+    //   console.log("hello")
+    //   $.ajax({
+    //     url: 'https://jsonplaceholder.typicode.com/posts/1', 
+    //     method: 'GET', 
+    //     success: (data)=> {
+    //       console.log("success", data)
+    //       $('.output').html(
+    //         '<h2>' + data.title + '</h2>'+
+    //         '<p>'+ data.body + '</p>'
+    //       )
+    //     }, 
+    //     dataType: 'json',
+    //     error: (e)=> {
+    //       console.log(e)
+    //     }
+    //   })  
+    // }
+
+    /* Using ajax shorthand */ 
+    const spacexURL = 'https://api.spacexdata.com/v2/launches/'
     const webData = ()=> {
-      console.log("hello")
-      $.ajax({
-        url: 'https://jsonplaceholder.typicode.com/posts/1', 
-        method: 'GET', 
-        success: (data)=> {
-          console.log("success", data)
-          $('.output').html(
-            '<h2>' + data.title + '</h2>'+
-            '<p>'+ data.body + '</p>'
-          )
-        }, 
-        dataType: 'json',
-        error: (e)=> {
-          console.log(e)
-        }
-      })
-      // .done((res)=> {
-      //   console.log(res)
-      // })
-      
+      $.get(spacexURL, handleOutput)
     }
+
+    const handleOutput = (data) => {
+      console.log(data[0])
+      let html; 
+
+      $.each(data, function(k,v){
+        html += '<h4>Flight number'+v.flight_number+'</h4><br/>'
+        html += 'Details:'+v.details+'<br/>'
+
+        // console.log(k)
+        // console.log(v)
+      })
+      $('.output').html(html)
+    }
+
 
   </script>
 </body>
