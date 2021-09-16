@@ -11,6 +11,15 @@
       "last": "Bond",
       "company": "DIsocvery",
       "id": 2
+    },
+    {
+      "id": 3
+    },
+    {
+      "first": "Jim",
+      "last": "JSON",
+      "company": "whatever",
+      "id": 4
     }
   ],
   "comments": [

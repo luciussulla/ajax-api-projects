@@ -21,6 +21,7 @@
   <h1>JSON Server</h1>
   <div id="message"></div>
   <div id="load1" class="btn">load1</div>
+  <div id="send1" class="btn">Send1</div>
 
   <script>
     let load1 = document.querySelector('#load1');
@@ -28,22 +29,29 @@
     let url = "http://localhost:3000/posts"
     let requestType = 'GET'
     let data = {}
+    const send1 = document.querySelector('#send1')
 
     load1.addEventListener('click', ()=> {
       console.log("works")
       makeReq(url, requestType, data)
     })
 
+    send1.addEventListener('click', ()=> {
+      makeReq(url,'POST',"first=Jim&last=JSON&company=whatever")
+    })
+
     const makeReq = (url, requestType, data)=> {
       let xhr = new XMLHttpRequest();
-      xhr.open(requestType, url, true)
+      
       xhr.onreadystatechange = ()=> {
         if(xhr.readyState == 4) {
           message.innerHTML = JSON.stringify(xhr.response)
           console.log(JSON.parse(xhr.response))
         }
       }
-      xhr.send()
+      xhr.open(requestType, url, true)
+      xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+      xhr.send(data)
     }
   
   </script>
