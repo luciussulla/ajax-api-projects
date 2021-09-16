@@ -15,31 +15,114 @@
     text-align: center; 
     border: 1px solid black; 
   }
+  .hide {
+    display: none; 
+  }
+
+  form {
+    background-color: aliceblue;
+    border: 1px solid bisque; 
+    padding: 10px; 
+  }
+
+  div, form, input {
+    margin-top: 35px; 
+  }
 </style>
 
 <body>
   <h1>JSON Server</h1>
   <div id="message"></div>
-  <div id="load1" class="btn">load1</div>
-  <div id="send1" class="btn">Send1</div>
+  <div id="load1" class="btn hide" >load1</div>
+  <div id="send1" class="btn hide" >Send1</div>
+
+  <div id="pageInfo"></div>
+  <div id="prev" class="btn">prev</div>
+  <div id="next" class="btn">next</div>
+
+  <form id="myForm">
+    <input type="text" name="first" value="Json">
+    <input type="text" name="lasts" value="Teter">
+    <input type="text" name="company" value="DIsoc">
+    <input type="submit" name="firstName" value="Send Data">
+  </form>
+
+  <input type="text" name="search"><button class="btn" id="search">Search</button>
+  <br/>
+
+  <textarea id="comments"></textarea>
+
+  <button class="btn" id="addComment">Add Comments</button>
+
+  <div id="output"></div>
 
   <script>
-    let load1 = document.querySelector('#load1');
+    let load1 = document.querySelector('#load1')
+    let send1 = document.querySelector('#send1')
+    let output = document.querySelector('#output')
+    let prev = document.querySelector('#prev')
+    let next = document.querySelector('#next')
+    let form = document.querySelector('#myForm')
+    let search = document.querySelector('#search')
+    let textarea = document.querySelector('#comments')
     let message = document.querySelector('#message')
     let url = "http://localhost:3000/posts"
-    let requestType = 'GET'
     let data = {}
-    const send1 = document.querySelector('#send1')
+    let currentId = 1
+ 
+    const loadPage = ()=> {      
+      console.log("Build Page")
+      let xhr = new XMLHttpRequest();
 
-    load1.addEventListener('click', ()=> {
-      console.log("works")
-      makeReq(url, requestType, data)
+      xhr.onreadystatechange = ()=> {
+        if(xhr.readyState == 4) {
+          // message.innerHTML = JSON.stringify(xhr.response)
+          let myResponseObj = JSON.parse(xhr.response)
+
+          for (let key in myResponseObj) {
+            console.log(myResponseObj[0][key])
+            output.innerHTML+= '<b>'+key+'</b>:'+myObj[0][key]+'<br/>'
+          }
+          
+          console.log(JSON.parse(xhr.response))
+        }
+      }
+      xhr.open('GET','localhost:3000/posts?id='+currentId, true)
+      xhr.send()
+
+    }
+
+    // button click handlers
+    prev.addEventListener('click', ()=> {
+      currentId--
+      loadPage()
     })
 
-    send1.addEventListener('click', ()=> {
-      makeReq(url,'POST',"first=Jim&last=JSON&company=whatever")
+    next.addEventListener('click', ()=> {
+      currentId++
+      loadPage()
     })
 
+    form.addEventListener('submit', (e)=> {
+      e.preventDefault()
+
+    })
+
+    // Get Request Function
+    const makeGet = (url, requestType, data)=> {
+      let xhr = new XMLHttpRequest();
+      
+      xhr.onreadystatechange = ()=> {
+        if(xhr.readyState == 4) {
+          message.innerHTML = JSON.stringify(xhr.response)
+          console.log(JSON.parse(xhr.response))
+        }
+      }
+      xhr.open(requestType, url, true)
+      xhr.send()
+    }
+
+    // Post Request Function
     const makeReq = (url, requestType, data)=> {
       let xhr = new XMLHttpRequest();
       
@@ -53,6 +136,18 @@
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
       xhr.send(data)
     }
+
+    /* 
+    
+    load1.addEventListener('click', ()=> {
+      makeGet(url, 'GET', data)
+    })
+
+    send1.addEventListener('click', ()=> {
+      makeReq(url,'POST',"first=Jim&last=JSON&company=whatever")
+    })
+
+    */ 
   
   </script>
 </body>
