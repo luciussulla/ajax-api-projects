@@ -1,0 +1,29 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "first": "json-server",
+      "last": "typicode",
+      "company": "some"
+    },
+    {
+      "first": "James",
+      "last": "Bond",
+      "company": "DIsocvery",
+      "id": 2
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "test": {
+    "whatever": "Hello World"
+  }
+}
